@@ -1,2 +1,1 @@
-# pytorch-data-mastery
-PyTorch Data Fundamentals: Kaggle vs. Hugging Face
+Project Title: PyTorch Data Fundamentals: Kaggle vs. Hugging Face.
