@@ -24,6 +24,6 @@ class MyImageDataset(Dataset):
         self.class_idx = {cls: i for i, cls in enumerate(self.class_names)}
         print(self.class_idx)
 
-MyImageDataset(root_dir = "/Users/anuhyasuri/Documents/pytorch_projects/pytorch-data-mastery/data/archive/seg_train/seg_train", transform = None)
+MyImageDataset(root_dir = "data/archive/seg_train/seg_train", transform = None)
 
 print("Done!")
