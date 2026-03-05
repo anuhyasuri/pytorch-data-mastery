@@ -14,6 +14,7 @@ class MyImageDataset(Dataset):
         self.transform = transform
         self.image_paths = []
         self.labels = []
+        valid_extensions = ('.jpg', '.jpeg', '.png', '.bmp', '.webp')
 
         # Adding label names from the folder names in images data
         # This below condition is to only include directories and ignore anything that starts with '.'
@@ -22,7 +23,29 @@ class MyImageDataset(Dataset):
                                   if os.path.isdir(os.path.join(root_dir, f)) and not f.startswith('.')
                                   ])
         self.class_idx = {cls: i for i, cls in enumerate(self.class_names)}
-        print(self.class_idx)
+        
+        # Walk through folders to get the image paths
+        for cls in self.class_names:
+            cls_path = os.path.join(root_dir, cls)
+            per_class_count = 0
+            for img_name in os.listdir(cls_path):
+                if img_name.lower().endswith(valid_extensions): # This check will ensure to read only images
+                    self.image_paths.append(os.path.join(cls_path, img_name))
+                    self.labels.append(self.class_idx[cls])
+                    per_class_count += 1
+            print(f"Class {cls}: loaded {per_class_count} images")
+        print("Dataset Loaded")
+        print(f"Path: {root_dir}")
+        print(f"Classes: {self.class_names}")
+        print(f"Total Images: {len(self.image_paths)}")
+        print("-" * 20 + "\n")
+
+    def __len__(self):
+        return len(self.image_paths)
+
+    def __getitem__(self, idx):
+        pass
+
 
 MyImageDataset(root_dir = "data/archive/seg_train/seg_train", transform = None)
 
