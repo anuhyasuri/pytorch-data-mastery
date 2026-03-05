@@ -1,6 +1,6 @@
 import os
 import torch
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import Dataset
 from torchvision import transforms
 from PIL import Image
 
@@ -44,9 +44,10 @@ class MyImageDataset(Dataset):
         return len(self.image_paths)
 
     def __getitem__(self, idx):
-        pass
+        img_path = self.image_paths[idx]
+        image = Image.open(img_path).convert('RGB')
+        label = self.labels[idx]
 
-
-MyImageDataset(root_dir = "data/archive/seg_train/seg_train", transform = None)
-
-print("Done!")
+        if self.transform:
+            image = self.transform(image)
+        return image, torch.tensor(label)
