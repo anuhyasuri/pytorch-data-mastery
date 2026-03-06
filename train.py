@@ -2,7 +2,7 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
 from src.datasets import MyImageDataset
-
+from src.utils import visualize_data
 def main():
 
     my_transforms = transforms.Compose([
@@ -19,6 +19,8 @@ def main():
 
     images, labels = next(iter(train_dataloader))
     print(f"Batch shape: {images.shape}")
+    print("Visualizing data")
+    visualize_data(train_dataloader, train_dataset.class_names)
     print("Done!")
 
 if __name__ == '__main__':
