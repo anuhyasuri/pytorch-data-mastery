@@ -17,6 +17,7 @@ This graph shows the impact of `num_workers` on data loading time:
 Created a utility to visualize the images in both the datasets
 
 # Project Structure
+```text
 ├── src/
 │   ├── datasets.py      # Custom local ImageDataset class (Kaggle)
 |   ├── __init__.py
@@ -26,6 +27,7 @@ Created a utility to visualize the images in both the datasets
 │   └── test_workers.py  # Performance testing suite
 ├── train.py             # Main entry point (Dataset switching logic)
 └── requirements.txt     # Dependency management
+```
 
 # Setup
 
