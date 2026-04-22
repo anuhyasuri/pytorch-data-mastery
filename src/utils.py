@@ -2,11 +2,18 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
-def visualize_data(dataloader, class_names):
+def visualize_data(dataloader, class_names, is_hf=False):
     """
-    Pulls one batch of dataloader to visualize images and labels
+    Pulls one batch of dataloader to visualize images and labels 
+    from either Pytorch or Hugging Face
     """
-    images, labels = next(iter(dataloader))
+    if is_hf == True:
+        #Hugging Face dataloader returns a dictionary
+        images = dataloader["pixel_values"]
+        labels = dataloader["label"]
+    else:
+        #Kaggle dataloader returns a tuple
+        images, labels = next(iter(dataloader))
 
     plt.figure(figsize=(8,8))
 
@@ -19,4 +26,7 @@ def visualize_data(dataloader, class_names):
         plt.axis("off")
     
     plt.tight_layout()
-    plt.savefig('kaggle_data.png')
+    if is_hf == True:
+         plt.savefig('hf_data.png')
+    else:
+        plt.savefig('kaggle_data.png')

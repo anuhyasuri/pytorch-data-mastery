@@ -3,7 +3,7 @@ from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
 from src.datasets import MyImageDataset
 from src.utils import visualize_data
-from src.hf_pipeline import get_hf_loader
+from src.hf_pipeline import get_hf_loader, get_class_names
 def main():
 
     # Pytorch dataset
@@ -21,14 +21,18 @@ def main():
 
     images, labels = next(iter(train_dataloader))
     print(f"Batch shape: {images.shape}")
-    print("Visualizing data")
+    print("Visualizing Pytorch data")
     visualize_data(train_dataloader, train_dataset.class_names)
     print("Done!")
 
     # Hugging face dataset
     hf_loader = get_hf_loader(dataset = "ethz/food101", batch_size = 32)
-    data_batch = next(iter(hf_loader))
-    print("HF",data_batch)
+    class_names = get_class_names()
+    batch = next(iter(hf_loader))
+    print(f"Batch shape: {batch['pixel_values'].shape}")
+    print("Visualizing Huggingface data")
+    visualize_data(batch, class_names, is_hf=True)
+    print("Done!")
 
 if __name__ == '__main__':
     main()

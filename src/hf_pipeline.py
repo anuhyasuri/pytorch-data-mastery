@@ -1,4 +1,4 @@
-from datasets import load_dataset
+from datasets import load_dataset, load_dataset_builder
 from torchvision import transforms
 from torch.utils.data import DataLoader
 
@@ -21,3 +21,8 @@ def get_hf_loader(dataset, batch_size):
     dataset.set_transform(transform_fn)
 
     return DataLoader(dataset, batch_size=batch_size, shuffle=True,num_workers=0)
+
+def get_class_names():
+    # Fetch the label names
+    ds_builder = load_dataset_builder("ethz/food101")
+    return ds_builder.info.features["label"].names
