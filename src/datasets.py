@@ -15,7 +15,8 @@ class MyImageDataset(Dataset):
         self.image_paths = []
         self.labels = []
         valid_extensions = ('.jpg', '.jpeg', '.png', '.bmp', '.webp')
-
+        # If no transform is provided, convert to Tensor atleast
+        self.transform = transform if transform else transforms.ToTensor()
         # Adding label names from the folder names in images data
         # This below condition is to only include directories and ignore anything that starts with '.'
         # sorted() helps in maintaining the index for each class even if the folder order is different
