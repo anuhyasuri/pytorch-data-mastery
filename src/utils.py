@@ -19,7 +19,9 @@ def visualize_data(dataloader, class_names, is_hf=False):
 
     for i in range(8):
         plt.subplot(2,4, i+1)
+        # PyTorch tensors are [C, H, W], but Matplotlib needs [H, W, C]
         img = images[i].permute(1, 2, 0).numpy()
+        # Un-normalize if you added normalization transforms later
         img = np.clip(img, 0, 1)
         plt.imshow(img)
         plt.title(class_names[labels[i].item()])
