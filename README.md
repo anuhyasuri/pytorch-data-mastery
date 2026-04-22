@@ -32,9 +32,9 @@ Created a utility to visualize the images in both the datasets
 # Setup
 
 1. Create a virtual environment using Python version: 3.12.6 and activate it
-    virtualenv -p python3.12.6 <venv_name>
-    source <venv_name>/bin/activate
+    a. virtualenv -p python3.12.6 <venv_name>
+    b. source <venv_name>/bin/activate
 2. Install required packages
-    pip install -r requirements.txt
+    a. pip install -r requirements.txt
 3. Run the code
-    python train.py
+    a. python train.py
