@@ -5,12 +5,12 @@ from src.datasets import MyImageDataset
 from src.utils import visualize_data
 from src.hf_pipeline import get_hf_loader, get_class_names
 
-DATASET_MODE = "kaggle" # or "huggingface"
+DATASET_MODE = "huggingface" # or "kaggle"
 def main():
     if DATASET_MODE == "huggingface":
         # Hugging face dataset
         is_hf = True
-        hf_loader = get_hf_loader(dataset = "ethz/food101", batch_size = 32)
+        hf_loader = get_hf_loader(split = "train", dataset = "ethz/food101", batch_size = 32)
         class_names = get_class_names()
         batch = next(iter(hf_loader))
         print(f"Batch shape: {batch['pixel_values'].shape}")

@@ -2,6 +2,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
+def un_normalize(image):
+    """Reverses ImageNet normalization for visualization"""
+    mean = np.array([0.485, 0.456, 0.406])
+    std = np.array([0.229, 0.224, 0.225])
+    image = (image *std)+mean
+    return image
+
 def visualize_data(dataloader, class_names, is_hf=False):
     """
     Pulls one batch of dataloader to visualize images and labels 
@@ -21,7 +28,9 @@ def visualize_data(dataloader, class_names, is_hf=False):
         plt.subplot(2,4, i+1)
         # PyTorch tensors are [C, H, W], but Matplotlib needs [H, W, C]
         img = images[i].permute(1, 2, 0).numpy()
-        # Un-normalize if you added normalization transforms later
+        # Un-normalize if you added normalization transforms later. Reversing normalizing helps in visualizing images better
+        img = un_normalize(img)
+        # Ensure to stay in valid pixel range
         img = np.clip(img, 0, 1)
         plt.imshow(img)
         plt.title(class_names[labels[i].item()])
