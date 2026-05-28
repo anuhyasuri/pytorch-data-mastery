@@ -40,15 +40,15 @@ def run_benchmark(num_workers, pin_memory, total_batches = 50):
   print(f"Throughput: {batches_per_second:.2f} batches/sec\n")
   return batches_per_second
 
-  if __name__ == "__main__":
-    print("Starting Data Loader Speed Benchmarks on CUDA\n")
+if __name__ == "__main__":
+  print("Starting Data Loader Speed Benchmarks on CUDA\n")
 
-    # Test 1: Single-threaded (Baseline)
-    baseline = run_benchmark(num_workers=0, pin_memory=False)
+  # Test 1: Single-threaded (Baseline)
+  baseline = run_benchmark(num_workers=0, pin_memory=False)
 
-    # Test 2: Multi-threaded + Memory Pinning Optimized
-    optimized = run_benchmark(num_workers=2, pin_memory=True)
+  # Test 2: Multi-threaded + Memory Pinning Optimized
+  optimized = run_benchmark(num_workers=2, pin_memory=True)
 
-    improvement = (optimized - baseline) / baseline * 100
-    print(f"Overall Pipeline Throughput Improvement: {improvement:.2f}%")
+  improvement = (optimized - baseline) / baseline * 100
+  print(f"Overall Pipeline Throughput Improvement: {improvement:.2f}%")
 
